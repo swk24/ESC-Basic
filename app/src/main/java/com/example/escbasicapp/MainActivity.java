@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -62,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1001) {
             if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "PERMISSION GRANTED", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Requires Permission. Please allow it in Settings.", Toast.LENGTH_SHORT).show();
+                Log.d("PERMISSION DENIED", "Permission is Denied. Exciting App.");
+                finish();
             }
         }
     }
@@ -84,15 +89,16 @@ public class MainActivity extends AppCompatActivity {
         addContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO; add contacts
-                Toast.makeText(MainActivity.this, "test", Toast.LENGTH_SHORT).show();
+                Intent addIntent = new Intent(MainActivity.this, AddEditActivity.class);
+                startActivity(addIntent);
             }
         });
 
         contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO; contacts
+                Intent contactIntent = new Intent(MainActivity.this, ContactActivity.class);
+                startActivity(contactIntent);
             }
         });
 
